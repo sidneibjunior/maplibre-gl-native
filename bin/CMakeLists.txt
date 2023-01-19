@@ -22,8 +22,17 @@ target_link_libraries(
     PRIVATE Mapbox::Base::Extras::args mbgl-compiler-options mbgl-core
 )
 
-add_executable(
+# add_executable(
+#     mbgl-render
+#     ${PROJECT_SOURCE_DIR}/bin/render.cpp
+# )
+
+find_package(JNI REQUIRED)
+include_directories(${JNI_INCLUDE_DIRS})
+
+add_library(
     mbgl-render
+    SHARED
     ${PROJECT_SOURCE_DIR}/bin/render.cpp
 )
 

@@ -12,6 +12,11 @@
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
+#include "MapboxNativeBridge.h"
+
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+#pragma GCC diagnostic ignored "-Wunused-variable"
+
 
 int main(int argc, char *argv[]) {
     args::ArgumentParser argumentParser("Mapbox GL render tool");
@@ -108,4 +113,25 @@ int main(int argc, char *argv[]) {
     }
 
     return 0;
+}
+
+JNIEXPORT void JNICALL Java_kaffa_e3_mapbox_MapboxNativeBridge_exportImage(JNIEnv *env, jobject obj, jstring styleUrl, jstring outputFileName) {
+    printf("native function running!\n");
+
+    char *styleUrlNative = (char*) env->GetStringUTFChars(styleUrl, 0);
+    char *outputFileNameNative = (char*) env->GetStringUTFChars(outputFileName, 0);
+
+    // use your string
+    std::string pName = "program";
+    std::string pStyleParam = "--style";
+    std::string poutputParam = "--output";
+
+    char* args[5] = { const_cast<char*>(pName.c_str()), const_cast<char*>(pStyleParam.c_str()), styleUrlNative, const_cast<char*>(poutputParam.c_str()), outputFileNameNative };
+
+    main(5, args);
+
+    env->ReleaseStringUTFChars(styleUrl, styleUrlNative);
+    env->ReleaseStringUTFChars(outputFileName, outputFileNameNative);
+
+    return;
 }
