@@ -23,6 +23,10 @@ set(
     "--leak-check=full --gen-suppressions=all --error-exitcode=1 --suppressions=${PROJECT_SOURCE_DIR}/scripts/valgrind.sup"
 )
 
+
+# the name of the target operating system
+set(CMAKE_SYSTEM_NAME Windows)
+
 include(CTest)
 
 if(NOT CMAKE_BUILD_TYPE)
@@ -1097,6 +1101,8 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL Linux)
     include(${PROJECT_SOURCE_DIR}/platform/linux/linux.cmake)
 elseif(CMAKE_SYSTEM_NAME STREQUAL Darwin)
     include(${PROJECT_SOURCE_DIR}/platform/macos/macos.cmake)
+elseif(CMAKE_SYSTEM_NAME STREQUAL Windows)
+    include(${PROJECT_SOURCE_DIR}/platform/windows/windows.cmake)
 else()
     message(FATAL_ERROR "Unsupported target platform: " ${CMAKE_SYSTEM_NAME})
 endif()
