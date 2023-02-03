@@ -1088,6 +1088,8 @@ endif()
 
 include(${PROJECT_SOURCE_DIR}/scripts/license.cmake)
 
+include(${PROJECT_SOURCE_DIR}/mapbox-gl-kaffa/mbgl-kaffa.cmake)
+
 if(NOT EXISTS ${PROJECT_SOURCE_DIR}/internal/internal.cmake)
     set(MBGL_PUBLIC_BUILD TRUE)
 endif()

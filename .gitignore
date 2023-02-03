@@ -48,7 +48,9 @@ CMakeCache.txt
 CMakeFiles/*
 platform/node/*.node
 **/CMakeFiles/**
-**.cmake
+**/CTestTestfile.cmake
+MapboxCoreTargets.cmake
+**/cmake_install.cmake
 **.a
 DartConfiguration.tcl
 Makefile
@@ -76,3 +78,6 @@ out.png
 **.o
 **.class
 */android/.gradle/**
+
+**/target/**
+**.so
