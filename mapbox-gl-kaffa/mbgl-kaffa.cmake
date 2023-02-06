@@ -4,6 +4,7 @@ include_directories(${JNI_INCLUDE_DIRS})
 add_library(
     mbgl-kaffa
     SHARED
+    ${PROJECT_SOURCE_DIR}/mapbox-gl-kaffa/src/main/c/jni_utils.cpp
     ${PROJECT_SOURCE_DIR}/mapbox-gl-kaffa/src/main/c/MapboxNativeBridge.cpp
 )
 
