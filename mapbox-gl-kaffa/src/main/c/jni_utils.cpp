@@ -19,4 +19,10 @@ namespace Utils {
       env->DeleteLocalRef(stringClass);
       return ret;
   }
+
+  jbyteArray toJavaByteArray(JNIEnv* env, const uint8_t* bytes, int len) {
+    jbyteArray byte_array = env->NewByteArray(len);
+    env->SetByteArrayRegion(byte_array, 0, len, reinterpret_cast<const jbyte*>(bytes));
+    return byte_array;
+  }
 }

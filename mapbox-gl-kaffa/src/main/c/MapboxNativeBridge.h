@@ -10,7 +10,7 @@ extern "C"
 
   JNIEXPORT void JNICALL Java_kaffa_e3_mapbox_MapboxNativeBridge_destroyN(JNIEnv *, jobject);
 
-  JNIEXPORT void JNICALL Java_kaffa_e3_mapbox_MapboxNativeBridge_jumpToN(JNIEnv *, jobject, jdouble, jdouble, jdouble);
+  JNIEXPORT jbyteArray JNICALL Java_kaffa_e3_mapbox_MapboxNativeBridge_jumpToN(JNIEnv *, jobject, jdouble, jdouble, jdouble);
 
   JNIEXPORT void JNICALL Java_kaffa_e3_mapbox_MapboxNativeBridge_setSizeN(JNIEnv *, jobject, jint, jint);
 

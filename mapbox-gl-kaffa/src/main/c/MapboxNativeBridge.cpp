@@ -86,7 +86,7 @@ JNIEXPORT void JNICALL Java_kaffa_e3_mapbox_MapboxNativeBridge_destroyN(JNIEnv *
     return;
 }
 
-JNIEXPORT void JNICALL Java_kaffa_e3_mapbox_MapboxNativeBridge_jumpToN(JNIEnv *env, jobject obj, jdouble lat, jdouble lng, jdouble zoom) {
+JNIEXPORT jbyteArray JNICALL Java_kaffa_e3_mapbox_MapboxNativeBridge_jumpToN(JNIEnv *env, jobject obj, jdouble lat, jdouble lng, jdouble zoom) {
     Map* map = getMapObj(env, obj);
     HeadlessFrontend* frontend = getFrontendObj(env, obj);
     
@@ -94,16 +94,22 @@ JNIEXPORT void JNICALL Java_kaffa_e3_mapbox_MapboxNativeBridge_jumpToN(JNIEnv *e
                    .withCenter(LatLng { lat, lng })
                    .withZoom(zoom));
 
-    try {
-        std::ofstream out("out.png", std::ios::binary);
-        out << encodePNG(frontend->render(*map).image);
-        out.close();
-    } catch(std::exception& e) {
-        std::cout << "Error: " << e.what() << std::endl;
-        exit(1);
-    }
+    PremultipliedImage image = frontend->render(*map).image;
 
-    return;
+    int size = image.bytes();
+    jbyteArray ret = Utils::toJavaByteArray(env, image.data.get(), size);
+     try {
+         std::ofstream out("out.png", std::ios::binary);
+         out << encodePNG(frontend->render(*map).image);
+         out.close();
+     } catch(std::exception& e) {
+         std::cout << "Error: " << e.what() << std::endl;
+         exit(1);
+     }
+    return ret;
+
+
+    // return;
 }
 
 JNIEXPORT void JNICALL Java_kaffa_e3_mapbox_MapboxNativeBridge_setSizeN(JNIEnv *env, jobject obj, jint width, jint height) {
